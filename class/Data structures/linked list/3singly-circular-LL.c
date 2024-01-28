@@ -7,11 +7,12 @@ struct node {
 
 //insert at head
 struct node *insertAtHead(struct node *head, int data){
-    struct node *new = (struct node *)malloc(sizeof(struct node));
+    struct node *new;
+    new =  (struct node *)malloc(sizeof(struct node));
     new ->data = data;
     if(head == NULL){
         head = new;
-        new->next = head;
+        new->next = new;
         return head;
     }
     struct node *ptr = head;
@@ -37,8 +38,8 @@ void insertAtEnd(struct node **head,int info){
         while(ptr->next != (*head)){
             ptr = ptr->next;
         }
+        new->next = ptr->next;
         ptr->next = new;
-        new->next = (*head);
     }
 }
 //insert after a node
@@ -71,8 +72,8 @@ struct node *deleteAtHead(struct node *head){
     while(ptr->next != head){
         ptr = ptr->next;
     }
-    ptr->next = head->next;
     head = head->next;
+    ptr->next = head;
     free(temp);
     return head;
 }
@@ -94,7 +95,7 @@ struct node *deleteAtEnd(struct node *head){
         prev = ptr;
         ptr= ptr->next;
     }
-    prev->next = head;
+    prev->next = ptr->next;
     free(ptr);
     return head;
 }

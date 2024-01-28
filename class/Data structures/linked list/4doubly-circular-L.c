@@ -7,20 +7,13 @@ struct node {
 };
 //insert at beginning
 struct node *insertAtHead(struct node *head, int data){
-    struct node *new = (struct node *)malloc(sizeof(struct node));
+    struct node *new;
+    new =  (struct node *)malloc(sizeof(struct node));
     new->data = data;
     if(head == NULL){
         head = new;
         new->next = head;
         new->prev = head;
-        return head;
-    }
-    if(head -> next == head){
-        new->prev = head;
-        new->next = head;
-        head->prev = new;
-        head->next = new;
-        head = new;
         return head;
     }
     new->prev = head->prev;
@@ -33,7 +26,8 @@ struct node *insertAtHead(struct node *head, int data){
 
 //insert at end
 void insertAtEnd(struct node **head, int info){
-    struct node *new = (struct node *)malloc(sizeof(struct node));
+    struct node *new;
+    new = (struct node *)malloc(sizeof(struct node));
     new->data = info;
     if((*head ) == NULL){
         new->next = new;
@@ -53,7 +47,8 @@ void insertAtEnd(struct node **head, int info){
 
 //insert after a node (assuming x is present in list)
 struct node *insertAfter(struct node *head,int data, int x){
-    struct node *new = (struct node *)malloc(sizeof(struct node));
+    struct node *new;
+    new = (struct node *)malloc(sizeof(struct node));
     new -> data = data;
     if(head == NULL){
         head = new;
@@ -113,6 +108,8 @@ void deleteAtEnd(struct node **head){
     (*head)->prev = prev;
     free(ptr);
 }
+
+
 //delete after given node (assuming node is preset in list)
 struct node *deleteAfter(struct node *head, int data){
     if(head == NULL){
@@ -129,6 +126,8 @@ struct node *deleteAfter(struct node *head, int data){
     free(after);
     return head;
 }
+
+
 
 //printing all elements
 void traverse(struct node *head){

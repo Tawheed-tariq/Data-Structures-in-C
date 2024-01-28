@@ -35,6 +35,7 @@ node *insertAtBeg(node *head, int info){
     }
     new->prev = head->prev;
     new->next = head;
+    head->prev = new;
     head = new;
     return head;
 }
@@ -88,6 +89,8 @@ node *deleteAtBeg(node *head){
     }
     node *temp = head;
     head = head->next;
+    if(head != NULL)
+        head->prev = NULL
     free(temp);
     return head;
 }
@@ -116,12 +119,13 @@ node *deleteAfter(node *head,int data){
         printf("Data not present , linked list empty\n");
         return head;
     }
-    node *ptr = head , *after;
+    node *ptr = head , *after = NULL;
     while(ptr->data != data){
         ptr = ptr->next;
     }
     after = ptr->next;
-    ptr->next = after->next;
+    if(after != NULL)
+        ptr->next = after->next;
     if(after->next != NULL){//after can be last node also so we have to be carefull
         after->next ->prev = ptr;
     }
