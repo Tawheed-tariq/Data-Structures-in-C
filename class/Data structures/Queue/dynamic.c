@@ -29,12 +29,6 @@ struct queue *dequeue(struct queue *front){
         printf("QUeue is empty");
         return front;
     }
-    if(front->next == NULL){
-        struct queue *temp = front;
-        front = NULL;
-        free(temp);
-        return front;
-    }
     struct queue *temp = front;
     front = front->next;
     printf("Deleted %d\n", temp->data);
