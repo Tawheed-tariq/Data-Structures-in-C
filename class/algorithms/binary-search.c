@@ -3,7 +3,6 @@ int search(int *, int ,int);
 int main(){
     int n = 6,  arr[6] = {1,2,4,6,8,9}, key = 8;
     printf("%d\n", search(arr,n, key));
-
 }
 
 //iterative approach
