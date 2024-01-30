@@ -1,19 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
+typedef struct Node {
     int key;
     struct Node *left, *right;
-};
+}Node;
 
-struct Node* newNode(int item) {
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+Node* newNode(int item) {
+    Node* temp = (Node *)malloc(sizeof(Node));
     temp->key = item;
-    temp->left = temp->right = NULL;
+    temp->left = NULL;
+    temp->right = NULL;
     return temp;
 }
 
-void inOrder(struct Node *root){
+//traversals
+void inOrder(Node *root){ //LNR
     if(root == NULL){
         return;
     }
@@ -21,25 +23,56 @@ void inOrder(struct Node *root){
     printf("%d\t", root->key);
     inOrder(root->right);
 }
-
-struct Node* insert(struct Node* node, int key) {
-    if (node == NULL)
-        return newNode(key);
-    if (key < node->key)
-        node->left = insert(node->left, key);
-    else if (key > node->key)
-        node->right = insert(node->right, key);
-    return node;
+void preOrder(Node *root){ //NLR
+    if(root == NULL){
+        return;
+    }
+    printf("%d\t", root->key);
+    preOrder(root->left);
+    preOrder(root->right);
 }
 
-struct Node* minValueNode(struct Node* node) {
-    struct Node* current = node;
+void postOrder(Node *root){ //LRN
+    if(root == NULL){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    printf("%d\t", root->key);
+}
+
+//insertion
+Node* insert(Node* root, int key) {
+    if (root == NULL)
+        return newNode(key);
+    if (key < root->key) //go to left subtree
+        root->left = insert(root->left, key);
+    else if (key > root->key) //go to right subtree
+        root->right = insert(root->right, key);
+    return root;
+}
+
+
+//inorder successor
+Node* minValueNode(Node* root) {  //inorder successor (min of right subtree)
+    Node* current = root->right;
     while (current != NULL && current->left != NULL)
         current = current->left;
     return current;
+} 
+
+//inorder predecessor
+Node *maxValueNode(Node * root){ //inorder predecessor (max of left subtee)
+    Node * current = root->left;
+    while (current != NULL && current->right != NULL)
+    {
+        current = current->right;
+    }
+    return current; 
 }
 
-struct Node* deleteNode(struct Node* root, int key) {
+//deletion
+Node* deleteNode(Node* root, int key) {
     if(root == NULL){
         return NULL;
     }
@@ -49,47 +82,50 @@ struct Node* deleteNode(struct Node* root, int key) {
             free(root);
             return NULL;
         }
-        //1 child
+        //left child
         if(root->left != NULL && root->right == NULL){
-            struct Node* temp = root->left;
+            Node* temp = root->left;
             free(root);
             return temp;
         }
+        //right child
         if(root->right != NULL && root->left == NULL){
-            struct Node* temp = root->right;
+            Node* temp = root->right;
             free(root);
             return temp;
         }
         // 2 childs
-        struct Node* temp = minValueNode(root->right);
-        root->key = temp->key;
-        root->right = deleteNode(root->right, temp->key);
-    }else if(root->key > key){
+        Node* temp = minValueNode(root); //inorder successor
+        root->key = temp->key; //replace data of root with data of inorder successor or predecessor
+        root->right = deleteNode(root->right, temp->key); //now delete the node of inorder predecessor or inorder successor
+    }
+    else if(root->key > key){
         root->left = deleteNode(root->left , key);
-    }else{
+    }
+    else{
         root->right = deleteNode(root->right, key);
     }
     return root;
 }
 
 int main() {
-    struct Node* root = NULL;
+    Node* root = NULL;
     root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
+    root = insert(root, 20);
+    root = insert(root, 30);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
 
     printf("Binary Search Tree before deletion: ");
-    inOrder(root);
+    inOrder(root); //prints in sorted order
     
     int key_to_delete = 50;
     root = deleteNode(root, key_to_delete);
     
     printf("\nBinary Search Tree after deleting node with key %d: ", key_to_delete);
-    inOrder(root);
+    inOrder(root); //prints in sorted order
 
     return 0;
 }
