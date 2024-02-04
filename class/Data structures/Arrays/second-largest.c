@@ -31,7 +31,6 @@ int second_largest(int *arr,int n){
 
 int main(){
     int n = 6,  arr[6] = {4,2,1,6,2,7};
-    sort(arr.begin(), arr.end());
     // bubbleSort(arr, n);
     printf("Second largest = %d", second_largest(arr,n));
 }
