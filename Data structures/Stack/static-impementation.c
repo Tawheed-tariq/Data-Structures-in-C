@@ -13,13 +13,13 @@ int main(){
         printf("'I' to insert\n'D' to delete\n'E' to display\n>>");
         scanf(" %c", &command);
         if(command == 'I')
-        push();
+            push();
         else if(command == 'D')
-        pop();
+            pop();
         else if(command == 'E')
-        break;
+            break;
         else
-        printf("Enter a valid command\n\n\n");
+            printf("Enter a valid command\n\n\n");
     }
     display();
     return 0;
@@ -28,17 +28,17 @@ int main(){
 void push(){
     int element;
     if(top == MAX-1)
-    printf("stack overflow");
+        printf("stack overflow");
     else{
-    printf("Enter the value to be entered: ");
-    scanf("%d", &element);
-    stack[++top] = element;
+        printf("Enter the value to be entered: ");
+        scanf("%d", &element);
+        stack[++top] = element;
     }
 }
 //removing element from top
 void pop(){
     if(top == -1)
-    printf("stack underflow");
+        printf("stack underflow");
     else{
         printf("The deleted element is %d\n\n", stack[top--]);
     }

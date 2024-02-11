@@ -1,6 +1,5 @@
 // Insert, delete, search elements in array at specific position
 #include<stdio.h>
-int enter_elements();
 int insert(int , int , int *, int );
 int delete(int , int *, int);
 int search(int , int *, int);

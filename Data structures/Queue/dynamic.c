@@ -11,7 +11,7 @@ struct queue{
 void enqueue(struct queue **front, struct queue **rear, int data){
     struct queue *n = (struct queue *)malloc(sizeof(struct queue));
     n->data = data;
-    if((*front) == NULL && (*rear) == NULL){
+    if((*front) == NULL){
         (*front) = n;
         (*rear) = n;
         n->next = NULL;
@@ -31,6 +31,7 @@ struct queue *dequeue(struct queue *front){
     }
     struct queue *temp = front;
     front = front->next;
+    front->prev= NULL;
     printf("Deleted %d\n", temp->data);
     free(temp);
     return front;

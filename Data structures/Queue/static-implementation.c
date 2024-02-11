@@ -11,8 +11,7 @@ void enqueue(){
         int ele;
         printf("enter >>");
         scanf("%d", &ele);
-        rear++;
-        queue[rear] = ele;
+        queue[++rear] = ele;
         if(front == -1){
             front++;
         }
