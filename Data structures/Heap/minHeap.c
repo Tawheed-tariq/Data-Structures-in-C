@@ -19,7 +19,9 @@ void insertNode(int data){
         printf("Heap overflow");
         return;
     }
-    arr[++size] = data;
+    arr[++size] = data; //insert at last position
+
+    //take it to correct position
     int index = size;
     while(index > 1){
         int parent = index/2;

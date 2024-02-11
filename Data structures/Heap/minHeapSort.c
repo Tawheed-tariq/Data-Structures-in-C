@@ -27,9 +27,9 @@ void heapifyMin(int arr[], int size , int i){
 void heapSort(int arr[], int n){
     int size = n-1;
     while(size > 0){
-        swap(arr, arr+size);
-        size--;
-        heapifyMin(arr, size , 0);
+        swap(arr, arr+size); //swap first and last element
+        size--; //reduce the size
+        heapifyMin(arr, size , 0); //heapify the first node
     }
 }
 
