@@ -10,16 +10,16 @@ void swap(int *a, int *b){
 
 
 void heapifyMax(int arr[], int size , int i){
-    int smallest = i, left = 2*i +1 , right = 2*i+2 ;
-    if(left < size && arr[left] > arr[smallest]){
-        smallest = left;
+    int largest = i, left = 2*i +1 , right = 2*i+2 ;
+    if(left < size && arr[left] > arr[largest]){
+        largest = left;
     }
-    if(right < size && arr[right] > arr[smallest]){
-        smallest = right;
+    if(right < size && arr[right] > arr[largest]){
+        largest = right;
     }
-    if(smallest != i){
-        swap(arr+smallest, arr+i);
-        heapifyMax(arr, size, smallest);
+    if(largest != i){
+        swap(arr+largest, arr+i);
+        heapifyMax(arr, size, largest);
     }
 }
 
